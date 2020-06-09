@@ -4,6 +4,10 @@ public class Robot {
     private int x;
     private int y;
     private char payload;
+    // Declaring grid class variable
+    private final int XSIZE = 25;
+    private final int YSIZE = 25;
+    private char[][] grid = new char[XSIZE][YSIZE];
 
     // constructor for Robot class to house public content
     // No parameters needed for default constructor
@@ -49,5 +53,25 @@ public class Robot {
     public void print() {
         System.out.println("Location: (" + x + "," + y + ") Load: " + payload);
     }
+
     // Function for picking up load
+    public boolean pickup(int lx, int ly) {
+        // Examines current location of robot and if at location of pickup
+        if (x != lx || y != ly) {
+            System.out.println("Not at location: (" + lx + "," + ly + ")");
+            return false;
+        }
+        // If load is at location or not
+        if (grid[lx][ly] == ' ') {
+            System.out.println("No load at this location.");
+            return false;
+        }
+        // If payload is empty then pickup load
+        if (payload != ' ') {
+            return false;
+        }
+        payload = grid[lx][ly];
+        grid[lx][ly] = ' ';
+        return true;
+    }
 }
