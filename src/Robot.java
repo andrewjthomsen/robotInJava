@@ -74,4 +74,71 @@ public class Robot {
         grid[lx][ly] = ' ';
         return true;
     }
+
+    public boolean dropOff(int lx, int ly) {
+        // Return false if robot not at drop off location
+        if (x != lx || y != ly) {
+            System.out.println("Not at location: (" + lx + "," + ly + ")");
+            return false;
+        }
+        // return false if robot has no payload to drop off
+        if (payload != ' ') {
+            return false;
+        }
+        grid[lx][ly] = payload;
+        payload = ' ';
+        return true;
+    }
+
+    public void moveRight() {
+        x++;
+        // Checks if the grid boundary has been reached
+        if (x == XSIZE - 1) {
+            System.out.println("Right boundary reached.");
+        }
+    }
+
+    public void moveLeft() {
+        x--;
+        // Checks if the grid boundary has been reached
+        if (x == 0) {
+            System.out.println("Left boundary reached.");
+        }
+    }
+
+    public void moveUp() {
+        y--;
+        // Checks if the grid boundary has been reached
+        if (y == 0) {
+            System.out.println("Top boundary reached.");
+        }
+    }
+
+    public void moveDown() {
+        y++;
+        // Checks if the grid boundary has been reached
+        if (y == YSIZE - 1) {
+            System.out.println("Bottom boundary reached.");
+        }
+    }
+
+    public boolean moveTo(int lx, int ly) {
+        if (lx < 0 || lx > XSIZE - 1 || ly < 0 || ly > YSIZE - 1) {
+            return false;
+        } else {
+            // No matter what will give us the amount of moves it has to make
+            // Regardless of whether its left or right
+            for (int i = 0; i < Math.abs(x - lx); i++) {
+                // Handles both x coordinate movements
+                if (x > lx) moveLeft();
+                else moveRight();
+            }
+            for (int i = 0; i < Math.abs(y - ly); i++) {
+                // Handles both x coordinate movements
+                if (y > ly) moveDown();
+                else moveUp();
+            }
+        }
+        return true;
+    }
 }
