@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Robot {
     // 3 private data members: x variable, y variable, and payload variable
 
@@ -5,9 +7,9 @@ public class Robot {
     private int y;
     private char payload;
     // Declaring grid class variable
-    private final int XSIZE = 25;
-    private final int YSIZE = 25;
-    private char[][] grid = new char[XSIZE][YSIZE];
+    private static final int XSIZE = 25;
+    private static final int YSIZE = 25;
+    private static final char[][] grid = new char[XSIZE][YSIZE];
 
     // constructor for Robot class to house public content
     // No parameters needed for default constructor
@@ -15,6 +17,9 @@ public class Robot {
         x = 0;
         y = 0;
         payload = ' ';
+        for (char[] arr : grid) {// enhanced for loop
+            Arrays.fill(arr, ' ');
+        }
     }
 
     public Robot(int x, int y, char payload) {
@@ -51,7 +56,9 @@ public class Robot {
 
     // function that prints out location of robot and load status
     public void print() {
-        System.out.println("Location: (" + x + "," + y + ") Load: " + payload);
+        // Ternary conditional used to print the payload or empty if nothing in it.
+        System.out.println("Location: (" + x + "," + y + ") " +
+                "Load: " + (payload != ' ' ? payload : "Empty"));
     }
 
     // Function for picking up load
@@ -128,17 +135,49 @@ public class Robot {
         } else {
             // No matter what will give us the amount of moves it has to make
             // Regardless of whether its left or right
-            for (int i = 0; i < Math.abs(x - lx); i++) {
+            while (Math.abs(x - lx) != 0) {
                 // Handles both x coordinate movements
-                if (x > lx) moveLeft();
-                else moveRight();
+                if (x > lx) {
+                    moveLeft();
+                } else {
+                    moveRight();
+                }
             }
-            for (int i = 0; i < Math.abs(y - ly); i++) {
-                // Handles both x coordinate movements
-                if (y > ly) moveDown();
-                else moveUp();
+            while (Math.abs(y - ly) != 0) {
+                //Handles both x coordinate movements
+                if (y > ly) {
+                    moveUp();
+                } else {
+                    moveDown();
+                }
             }
         }
         return true;
+    }
+
+    // Place payloads at locations on map
+    public static boolean placePayLoad(int lx, int ly, char payload) {
+        // check for valid boundaries
+        if (lx < 0 || lx > XSIZE - 1 || ly < 0 || ly > YSIZE - 1) {
+            return false;
+        } else {
+            grid[lx][ly] = payload;
+        }
+        return true;
+    }
+
+    // Need to resolve this nonmember business
+    public static void print2D() {
+        System.out.println("-----------------------------------------------------------------------------------------------------");
+        for (int i = 0; i < XSIZE; i++) {
+            System.out.print("|");
+            for (int j = 0; j < YSIZE; j++) {
+                System.out.print(" " + grid[i][j] + " |");
+            }
+            // deleted grid parameter because has access to grid and no methods have grid as params
+            System.out.println();
+            System.out.println("-----------------------------------------------------------------------------------------------------");
+
+        }
     }
 }
