@@ -18,11 +18,14 @@ public class Main {
         r2.print();
         // r1 pickup/drop off
         r1.pickup(10, 8);
+       // Didn't know if we needed to move to location first or you wanted to see error messages. So I did both.
         r1.dropOff(20, 20);
         r1.print();
         Robot.print2D();
         // r2 pickup/drop off
+        r2.moveTo(22, 4);
         r2.pickup(22, 4);
+        r2.moveTo(0,0);
         r2.dropOff(0, 0);
         r2.print();
         Robot.print2D();

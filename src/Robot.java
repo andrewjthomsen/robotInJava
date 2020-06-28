@@ -89,7 +89,7 @@ public class Robot {
             return false;
         }
         // return false if robot has no payload to drop off
-        if (payload != ' ') {
+        if (payload == ' ') {
             return false;
         }
         grid[lx][ly] = payload;
@@ -98,34 +98,38 @@ public class Robot {
     }
 
     public void moveRight() {
-        x++;
         // Checks if the grid boundary has been reached
         if (x == XSIZE - 1) {
             System.out.println("Right boundary reached.");
+        } else {
+            x++;
         }
     }
 
     public void moveLeft() {
-        x--;
         // Checks if the grid boundary has been reached
         if (x == 0) {
             System.out.println("Left boundary reached.");
+        } else {
+            x--;
         }
     }
 
     public void moveUp() {
-        y--;
         // Checks if the grid boundary has been reached
         if (y == 0) {
             System.out.println("Top boundary reached.");
+        } else {
+            y--;
         }
     }
 
     public void moveDown() {
-        y++;
         // Checks if the grid boundary has been reached
         if (y == YSIZE - 1) {
             System.out.println("Bottom boundary reached.");
+        } else {
+            y++;
         }
     }
 
@@ -162,6 +166,7 @@ public class Robot {
             return false;
         } else {
             grid[lx][ly] = payload;
+
         }
         return true;
     }
@@ -177,7 +182,6 @@ public class Robot {
             // deleted grid parameter because has access to grid and no methods have grid as params
             System.out.println();
             System.out.println("-----------------------------------------------------------------------------------------------------");
-
         }
     }
 }
